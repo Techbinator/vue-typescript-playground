@@ -7,10 +7,20 @@
           <small>(Price: {{ stock.price }})</small>
         </h3>
         <div>
-          <input placeholder="quantity" type="number" class="form-control" v-model="quantity" />
+          <input
+            placeholder="quantity"
+            type="number"
+            class="form-control"
+            v-model.number="quantity"
+            :class="{danger: insufficentFunds}"
+          />
         </div>
         <div>
-          <button class="btn btn-success" :disabled="quantity <=0" @click="buyStock">Buy</button>
+          <button
+            class="btn btn-success"
+            :disabled="quantity <=0 || !Number.isInteger(quantity)"
+            @click="buyStock"
+          >{{ insufficentFunds ? "Insufficient Funds": 'Buy' }}</button>
         </div>
       </div>
     </div>
@@ -25,8 +35,16 @@ import { IStock } from "@/types/stocks";
 export default Vue.extend({
   data() {
     return {
-      quantity: "0"
+      quantity: 2
     };
+  },
+  computed: {
+    funds(): number {
+      return this.$store.getters.funds;
+    },
+    insufficentFunds(): boolean {
+      return this.quantity * this.stock.price > this.funds;
+    }
   },
   props: {
     stock: {
@@ -38,10 +56,10 @@ export default Vue.extend({
       const order = {
         stockId: this.stock.id,
         stockPrice: this.stock.price,
-        quantity: parseInt(this.quantity)
+        quantity: this.quantity
       };
       this.$store.dispatch("buyStock", order);
-      this.quantity = "0";
+      this.quantity = 0;
     }
   }
 });
@@ -50,5 +68,8 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .stock {
   margin-top: 10px;
+}
+.danger {
+  border: 1px solid red;
 }
 </style>

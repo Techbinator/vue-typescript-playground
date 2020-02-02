@@ -10,6 +10,7 @@
           <a class="nav-link">Stocks</a>
         </router-link>
       </ul>
+      <strong class="navbar-text navbar-right">Funds: {{ funds | currency }}</strong>
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
           <a class="nav-link" href="#">End Day</a>
@@ -32,3 +33,14 @@
     </div>
   </nav>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    }
+  }
+});
+</script>

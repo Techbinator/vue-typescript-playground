@@ -4,7 +4,9 @@ import router from "./router";
 import store from "./store";
 
 Vue.config.productionTip = false;
-
+Vue.filter("currency", (value: number) => {
+  return "$" + value.toLocaleString();
+});
 new Vue({
   router,
   store,
