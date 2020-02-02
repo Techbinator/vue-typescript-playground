@@ -15,7 +15,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#" @click="endDay">End Day</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" :class="{show: isDropdownActive}">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -23,8 +23,13 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+            @click="isDropdownActive= !isDropdownActive"
           >Save and load</a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div
+            class="dropdown-menu"
+            :class="{show: isDropdownActive}"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
             <a class="dropdown-item" href="#">Save</a>
             <a class="dropdown-item" href="#">Load</a>
           </div>
@@ -39,6 +44,11 @@ import Vue from "vue";
 import { mapActions } from "vuex";
 
 export default Vue.extend({
+  data() {
+    return {
+      isDropdownActive: false
+    };
+  },
   computed: {
     funds() {
       return this.$store.getters.funds;
