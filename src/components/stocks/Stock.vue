@@ -20,11 +20,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-interface IStock {
-  id: number;
-  price: number;
-  name: string;
-}
+import { IStock } from "@/store/modules/stocks";
+
 export default Vue.extend({
   data() {
     return {
