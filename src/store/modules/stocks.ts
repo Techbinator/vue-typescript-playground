@@ -10,7 +10,11 @@ const mutations = {
   SET_STOCKS(state: IStocksState, stocks: IStock[]) {
     state.stocks = stocks;
   },
-  RND_STOCKS(state: IStocksState) {}
+  RND_STOCKS(state: IStocksState) {
+    state.stocks.forEach(stock => {
+      stock.price = Math.round(stock.price * (1 + Math.random() - 0.5));
+    });
+  }
 };
 const actions: ActionTree<IStocksState, {}> = {
   buyStock({ commit }, order: IOrder) {
