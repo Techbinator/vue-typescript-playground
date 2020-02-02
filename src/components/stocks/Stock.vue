@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { IStock } from "@/store/modules/stocks";
+import { IStock } from "@/types/stocks";
 
 export default Vue.extend({
   data() {
@@ -40,6 +40,7 @@ export default Vue.extend({
         stockPrice: this.stock.price,
         quantity: parseInt(this.quantity)
       };
+      this.$store.dispatch("buyStock", order);
       this.quantity = "0";
     }
   }

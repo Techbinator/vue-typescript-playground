@@ -7,7 +7,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Stock from "./Stock.vue";
-import { IStock } from "@/store/modules/stocks";
+import { IStock } from "@/types/stocks";
 
 export default Vue.extend({
   components: {

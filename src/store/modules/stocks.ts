@@ -1,25 +1,10 @@
-import { ActionContext, ActionTree } from "vuex";
-import stocks from "../../data/stocks";
+import { ActionTree } from "vuex";
+import stocks from "@/data/stocks";
+import { IStocksState, IStock, IOrder } from "@/types/stocks";
 
 const state = {
   stocks: []
 };
-
-export interface IStock {
-  id: number;
-  price: number;
-  name: string;
-}
-
-interface IStocksState {
-  stocks: IStock[];
-}
-
-interface IOrder {
-  stockId: number;
-  stockPrice: number;
-  quantity: number;
-}
 
 const mutations = {
   SET_STOCKS(state: IStocksState, stocks: IStock[]) {
@@ -28,7 +13,9 @@ const mutations = {
   RND_STOCKS(state: IStocksState) {}
 };
 const actions: ActionTree<IStocksState, {}> = {
-  buyStock({ commit }, order: IOrder) {},
+  buyStock({ commit }, order: IOrder) {
+    commit("BUY_STOCK", order);
+  },
   initStocks({ commit }) {
     commit("SET_STOCKS", stocks);
   },
